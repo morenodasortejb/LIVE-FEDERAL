@@ -78,7 +78,7 @@
             border: none;
             border-radius: 5px;
             font-size: 14px;
-            cursesultadosor: pointer;
+            cursor: pointer;
             transition: background-color 0.3s;
         }
         .update-section button:hover {
@@ -157,27 +157,47 @@
     </div>
 
     <script>
-        // Função para associar números aos animais do Jogo do Bicho
+        // Função para associar números aos animais do Jogo do Bicho com emojis
         function getAnimal(milhar) {
             const lastTwo = parseInt(milhar.slice(-2)); // Pegar os dois últimos dígitos
             const animals = [
-                { name: "Avestruz", range: [1, 4] }, { name: "Águia", range: [5, 8] },
-                { name: "Burro", range: [9, 12] }, { name: "Borboleta", range: [13, 16] },
-                { name: "Cachorro", range: [17, 20] }, { name: "Cabra", range: [21, 24] },
-                { name: "Carneiro", range: [25, 28] }, { name: "Camelo", range: [29, 32] },
-                { name: "Cobra", range: [33, 36] }, { name: "Coelho", range: [37, 40] },
-                { name: "Cavalo", range: [41, 44] }, { name: "Elefante", range: [45, 48] },
-                { name: "Galo", range: [49, 52] }, { name: "Gato", range: [53, 56] },
-                { name: "Jacaré", range: [57, 60] }, { name: "Leão", range: [61, 64] },
-                { name: "Macaco", range: [65, 68] }, { name: "Porco", range: [69, 72] },
-                { name: "Pavão", range: [73, 76] }, { name: "Peru", range: [77, 80] },
-                { name: "Touro", range: [81, 84] }, { name: "Tigre", range: [85, 88] },
-                { name: "Urso", range: [89, 92] }, { name: "Veado", range: [93, 96] },
-                { name: "Vaca", range: [97, 0] } // 97-00
+                { name: "Avestruz", emoji: "🦤", range: [1, 4] },
+                { name: "Águia", emoji: "🦅", range: [5, 8] },
+                { name: "Burro", emoji: "🦷", range: [9, 12] },
+                { name: "Borboleta", emoji: "🦋", range: [13, 16] },
+                { name: "Cachorro", emoji: "🐶", range: [17, 20] },
+                { name: "Cabra", emoji: "🐐", range: [21, 24] },
+                { name: "Carneiro", emoji: "🐏", range: [25, 28] },
+                { name: "Camelo", emoji: "🐪", range: [29, 32] },
+                { name: "Cobra", emoji: "🐍", range: [33, 36] },
+                { name: "Coelho", emoji: "🐰", range: [37, 40] },
+                { name: "Cavalo", emoji: "🐴", range: [41, 44] },
+                { name: "Elefante", emoji: "🐘", range: [45, 48] },
+                { name: "Galo", emoji: "🐓", range: [49, 52] },
+                { name: "Gato", emoji: "🐱", range: [53, 56] },
+                { name: "Jacaré", emoji: "🐊", range: [57, 60] },
+                { name: "Leão", emoji: "🦁", range: [61, 64] },
+                { name: "Macaco", emoji: "🐒", range: [65, 68] },
+                { name: "Porco", emoji: "🐷", range: [69, 72] },
+                { name: "Pavão", emoji: "🦚", range: [73, 76] },
+                { name: "Peru", emoji: "🦃", range: [77, 80] },
+                { name: "Touro", emoji: "🐂", range: [81, 84] },
+                { name: "Tigre", emoji: "🐅", range: [85, 88] },
+                { name: "Urso", emoji: "🐻", range: [89, 92] },
+                { name: "Veado", emoji: "🦌", range: [93, 96] },
+                { name: "Vaca", emoji: "🐄", range: [97, 0] } // 97-00
             ];
+
             for (let animal of animals) {
-                if (lastTwo >= animal.range[0] && lastTwo <= animal.range[1]) {
-                    return animal.name;
+                if (animal.range[1] >= animal.range[0]) {
+                    if (lastTwo >= animal.range[0] && lastTwo <= animal.range[1]) {
+                        return `${animal.emoji} ${animal.name}`;
+                    }
+                } else {
+                    // Caso especial para "Vaca" (97-00)
+                    if (lastTwo >= animal.range[0] || lastTwo <= animal.range[1]) {
+                        return `${animal.emoji} ${animal.name}`;
+                    }
                 }
             }
             return "Desconhecido";
