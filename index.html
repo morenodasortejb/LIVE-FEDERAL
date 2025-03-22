@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Águia Oficial - Melhor Banca de Apostas do Brasil</title>
+    <style>
+        body {
+            background-color: #00FF00; /* Verde para chroma key */
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        h1 {
+            font-size: 40px;
+            font-weight: bold;
+            color: #FFD700; /* Amarelo ouro */
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 40px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 300px; /* Espaço ainda maior entre tabelas e seção de atualização */
+        }
+        table {
+            border-collapse: collapse;
+            width: 300px;
+            background: linear-gradient(135deg, #1a1a1a, #333); /* Gradiente escuro */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        th, td {
+            border: 1px solid #FFD700;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #FFD700;
+            color: #000;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        td {
+            font-size: 14px;
+            color: #fff;
+        }
+        .update-section {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+        }
+        .update-section h2 {
+            font-size: 20px;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        .update-section input {
+            padding: 8px;
+            margin: 5px;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 80px;
+        }
+        .update-section button {
+            padding: 8px 16px;
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .update-section button:hover {
+            background-color: #FFC107;
+        }
+    </style>
+</head>
+<body>
+    <h1>Águia Oficial - Melhor Banca de Apostas do Brasil</h1>
+    <div class="container">
+        <!-- Tabela de Palpites Federal -->
+        <table id="palpites">
+            <tr>
+                <th colspan="2">Palpites Federal</th>
+            </tr>
+            <tr>
+                <td class="milhar"></td>
+                <td class="animal"></td>
+            </tr>
+            <tr>
+                <td class="milhar"></td>
+                <td class="animal"></td>
+            </tr>
+            <tr>
+                <td class="milhar"></td>
+                <td class="animal"></td>
+            </tr>
+            <tr>
+                <td class="milhar"></td>
+                <td class="animal"></td>
+            </tr>
+            <tr>
+                <td class="milhar"></td>
+                <td class="animal"></td>
+            </tr>
+        </table>
+
+        <!-- Tabela de Resultado Federal -->
+        <table id="resultados">
+            <tr>
+                <th colspan="2">Resultado Federal</th>
+            </tr>
+            <tr>
+                <td class="milhar-resultado"></td>
+                <td class="animal-resultado"></td>
+            </tr>
+            <tr>
+                <td class="milhar-resultado"></td>
+                <td class="animal-resultado"></td>
+            </tr>
+            <tr>
+                <td class="milhar-resultado"></td>
+                <td class="animal-resultado"></td>
+            </tr>
+            <tr>
+                <td class="milhar-resultado"></td>
+                <td class="animal-resultado"></td>
+            </tr>
+            <tr>
+                <td class="milhar-resultado"></td>
+                <td class="animal-resultado"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Seção de Atualização -->
+    <div class="update-section">
+        <h2>Atualizar Resultados Federal</h2>
+        <input type="text" id="resultado1" placeholder="Milhar 1">
+        <input type="text" id="resultado2" placeholder="Milhar 2">
+        <input type="text" id="resultado3" placeholder="Milhar 3">
+        <input type="text" id="resultado4" placeholder="Milhar 4">
+        <input type="text" id="resultado5" placeholder="Milhar 5">
+        <br>
+        <button onclick="updateResults()">Atualizar</button>
+    </div>
+
+    <script>
+        // Função para associar números aos animais do Jogo do Bicho
+        function getAnimal(milhar) {
+            const lastTwo = parseInt(milhar.slice(-2)); // Pegar os dois últimos dígitos
+            const animals = [
+                { name: "Avestruz", range: [1, 4] }, { name: "Águia", range: [5, 8] },
+                { name: "Burro", range: [9, 12] }, { name: "Borboleta", range: [13, 16] },
+                { name: "Cachorro", range: [17, 20] }, { name: "Cabra", range: [21, 24] },
+                { name: "Carneiro", range: [25, 28] }, { name: "Camelo", range: [29, 32] },
+                { name: "Cobra", range: [33, 36] }, { name: "Coelho", range: [37, 40] },
+                { name: "Cavalo", range: [41, 44] }, { name: "Elefante", range: [45, 48] },
+                { name: "Galo", range: [49, 52] }, { name: "Gato", range: [53, 56] },
+                { name: "Jacaré", range: [57, 60] }, { name: "Leão", range: [61, 64] },
+                { name: "Macaco", range: [65, 68] }, { name: "Porco", range: [69, 72] },
+                { name: "Pavão", range: [73, 76] }, { name: "Peru", range: [77, 80] },
+                { name: "Touro", range: [81, 84] }, { name: "Tigre", range: [85, 88] },
+                { name: "Urso", range: [89, 92] }, { name: "Veado", range: [93, 96] },
+                { name: "Vaca", range: [97, 0] } // 97-00
+            ];
+            for (let animal of animals) {
+                if (lastTwo >= animal.range[0] && lastTwo <= animal.range[1]) {
+                    return animal.name;
+                }
+            }
+            return "Desconhecido";
+        }
+
+        // Gerar palpites aleatórios automaticamente
+        const palpitesMilhar = document.querySelectorAll("#palpites .milhar");
+        const palpitesAnimal = document.querySelectorAll("#palpites .animal");
+        palpitesMilhar.forEach((td, index) => {
+            const randomMilhar = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            td.textContent = randomMilhar;
+            palpitesAnimal[index].textContent = getAnimal(randomMilhar);
+        });
+
+        // Função para atualizar resultados manualmente
+        function updateResults() {
+            const resultadosMilhar = document.querySelectorAll("#resultados .milhar-resultado");
+            const resultadosAnimal = document.querySelectorAll("#resultados .animal-resultado");
+            const inputs = [
+                document.getElementById("resultado1").value,
+                document.getElementById("resultado2").value,
+                document.getElementById("resultado3").value,
+                document.getElementById("resultado4").value,
+                document.getElementById("resultado5").value
+            ];
+
+            resultadosMilhar.forEach((td, index) => {
+                const milhar = inputs[index].padStart(4, '0');
+                td.textContent = milhar || "";
+                resultadosAnimal[index].textContent = milhar ? getAnimal(milhar) : "";
+            });
+        }
+    </script>
+</body>
+</html>
