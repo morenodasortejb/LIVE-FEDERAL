@@ -26,7 +26,7 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
-            margin-bottom: 300px; /* Espaço ainda maior entre tabelas e seção de atualização */
+            margin-bottom: 500px; /* Espaço grande entre tabelas e seção de atualização */
         }
         table {
             border-collapse: collapse;
@@ -78,7 +78,7 @@
             border: none;
             border-radius: 5px;
             font-size: 14px;
-            cursor: pointer;
+            cursesultadosor: pointer;
             transition: background-color 0.3s;
         }
         .update-section button:hover {
@@ -192,7 +192,20 @@
             palpitesAnimal[index].textContent = getAnimal(randomMilhar);
         });
 
-        // Função para atualizar resultados manualmente
+        // Função para carregar resultados salvos do localStorage
+        function loadResults() {
+            const resultadosMilhar = document.querySelectorAll("#resultados .milhar-resultado");
+            const resultadosAnimal = document.querySelectorAll("#resultados .animal-resultado");
+            const savedResults = JSON.parse(localStorage.getItem('resultadosFederal')) || [];
+
+            resultadosMilhar.forEach((td, index) => {
+                const milhar = savedResults[index] ? savedResults[index].padStart(4, '0') : "";
+                td.textContent = milhar;
+                resultadosAnimal[index].textContent = milhar ? getAnimal(milhar) : "";
+            });
+        }
+
+        // Função para atualizar resultados e salvar no localStorage
         function updateResults() {
             const resultadosMilhar = document.querySelectorAll("#resultados .milhar-resultado");
             const resultadosAnimal = document.querySelectorAll("#resultados .animal-resultado");
@@ -204,12 +217,25 @@
                 document.getElementById("resultado5").value
             ];
 
+            const resultsToSave = inputs.map(input => input || "");
+            localStorage.setItem('resultadosFederal', JSON.stringify(resultsToSave));
+
             resultadosMilhar.forEach((td, index) => {
-                const milhar = inputs[index].padStart(4, '0');
+                const milhar = resultsToSave[index].padStart(4, '0');
                 td.textContent = milhar || "";
                 resultadosAnimal[index].textContent = milhar ? getAnimal(milhar) : "";
             });
         }
+
+        // Escutar mudanças no localStorage e atualizar a tabela
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'resultadosFederal') {
+                loadResults();
+            }
+        });
+
+        // Carregar resultados ao abrir a página
+        window.addEventListener('load', loadResults);
     </script>
 </body>
 </html>
